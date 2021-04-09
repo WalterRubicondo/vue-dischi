@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Vue Dischi Musicali</title>
+      <link rel="stylesheet" href="./master.css">
+    </head>
+    <body>
+      <div id="root">
+        <div class="navbar">
+          <input type="text" v-model="searchArtist" placeholder="Cerca un Artista o un Album">
+          <label for="genre"> Scegli un genere:
+            <select class="" v-model="selectGenre">
+              <option value="">All</option>
+              <option value="Rock">Rock</option>
+              <option value="Pop">Pop</option>
+              <option value="Jazz">Jazz</option>
+              <option value="Metal">Metal</option>
+            </select>
+          </label>
+        </div>
+        <div class="card"
+        v-for="discs in disc"
+        v-if="(selectGenre == discs.genre) ? true : !selectGenre && (discs.author.toLowerCase().includes(searchArtist.toLowerCase()) || discs.title.toLowerCase().includes(searchArtist.toLowerCase()))">
+          <img :src="discs.poster" alt="">
+          <div class="info">
+            <span class="artist">{{ discs.author }}</span>
+            <span class="title">{{ discs.title }}</span>
+            <span class="genre">{{ discs.genre }}</span>
+            <span class="year">{{ discs.year }}</span>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+      <script src="./main.js" charset="utf-8"></script>
+    </body>
+  </html>
